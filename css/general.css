@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css");
+
+:root {
+  --main-bg-color: #0b0d0f;
+  --cards-bg-color: #1b1d22cc;
+  --primary-color: #00a2ff;
+  --secondary-color: #00ffaa;
+  --primary-text-color: white;
+  --secondary-text-color: #aaa;
+  --accent-color: #4da6ff;
+  --main-font: 'Inter', sans-serif;
+
+  --font-inter: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --light-blue: #4da6ff;
+  --cyan: #00d4ff;
+  --green: #00ffaa;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--main-font);
+  background-color: var(--main-bg-color);
+  color: var(--primary-text-color);
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: clamp(2rem, 7vw, 3.75rem);
+  line-height: 1;
+  font-weight: 700;
+  color: var(--primary-text-color);
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  color: var(--primary-color);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+  /* margin: 1rem 0; */
+  margin-bottom: 2rem;
+}
+
+p {
+  max-width: 700px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #aaa;
+  z-index: 2;
+}
+
+p strong {
+  font-weight: 500;
+  color: #00c8ff;
+}
+
+p .green {
+  color: #00ffaa;
+}

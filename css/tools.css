@@ -1,0 +1,68 @@
+.tools-bar {
+  width: 100%;
+  overflow: hidden;
+  padding: 1.2rem 0;
+  position: relative;
+  z-index: 5;
+  margin-top: 3rem;
+
+  /* Fade edges */
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.tools-track {
+  display: inline-flex;
+  gap: 0.8rem;
+  animation: toolsScroll 50s linear infinite;
+  white-space: nowrap;
+}
+
+.tools-bar:hover .tools-track {
+  animation-play-state: paused;
+}
+
+@keyframes toolsScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.tool-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1.6rem;
+  background: rgba(17, 22, 26, 0.8);
+  border: 1px solid rgba(0, 200, 255, 0.12);
+  border-radius: 10px;
+  color: #bbb;
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.tool-pill:hover {
+  border-color: rgba(0, 200, 255, 0.4);
+  color: #fff;
+  background: rgba(0, 162, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 162, 255, 0.12);
+}
+
+.tool-pill-icon svg {  
+  stroke: #00c8ff;
+  display: block;
+  filter: drop-shadow(0 0 4px rgba(0, 200, 255, 0.4));
+  transition: all 0.3s ease;
+}
+
+.tool-pill:hover .tool-pill-icon svg {
+  stroke: #00ffaa;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 170, 0.5));
+}
+
+.tool-pill-name {
+  letter-spacing: 0.02em;
+}
