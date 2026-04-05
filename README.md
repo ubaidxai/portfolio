@@ -57,6 +57,24 @@ Then just open `index.html` in your browser. That's it.
 
 ---
 
+## ⚙️ Configuration
+
+All environment-specific values live in `config.js` in the root directory.
+Copy the example file and fill in your values:
+```bash
+cp config.example.js config.js
+```
+
+| Key | Description |
+|-----|-------------|
+| `AI_API_URL` | Your FastAPI assistant endpoint (hosted on Render or elsewhere) |
+| `OWNER_EMAIL` | Your contact email shown in error and maintenance messages |
+| `MAINTENANCE_MODE` | Set to `true` to show maintenance banner, `false` when API is live |
+
+> `config.js` is listed in `.gitignore` and will not be committed. `config.example.js` is the safe-to-commit template.
+
+---
+
 ## ✏️ Customization
 
 All content lives in JS data arrays at the top of `script.js`. To update anything:
