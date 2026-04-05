@@ -16,6 +16,9 @@
   --light-blue: #4da6ff;
   --cyan: #00d4ff;
   --green: #00ffaa;
+
+  --card-main-bg: #111820;
+  --card-sub-bg: rgba(255, 255, 255, 0.05);
 }
 
 
