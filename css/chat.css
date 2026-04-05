@@ -151,11 +151,17 @@
   align-items: flex-start;
 }
 
+.ai-message-content {
+  flex: 1;
+  word-break: break-word;
+}
+
 .ai-message-label {
   flex-shrink: 0;
   font-weight: 700;
   letter-spacing: 0.05em;
   margin-top: 1px;
+  width: 38px;
 }
 
 .ai-message--ai   .ai-message-label { color: #00c8ff; }

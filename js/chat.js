@@ -17,6 +17,7 @@ let conversationHistory = [];
 let isBooted = false;
 
 function openAITerminal() {
+  document.getElementById("navbar").style.display = "none";
   const overlay = document.getElementById("ai-overlay");
   overlay.classList.add("active");
   document.body.style.overflow = "hidden";
@@ -32,6 +33,7 @@ function openAITerminal() {
 }
 
 function closeAITerminal() {
+  document.getElementById("navbar").style.display = "";
   const overlay = document.getElementById("ai-overlay");
   overlay.classList.remove("active");
   document.body.style.overflow = "";
