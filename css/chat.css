@@ -245,7 +245,7 @@
 @media (max-width: 768px) {
   .ai-overlay {
     padding: 1rem;
-    align-items: flex-end;
+    /* align-items: flex-end; */
   }
   .ai-terminal {
     max-height: 85vh;
