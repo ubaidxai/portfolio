@@ -1,7 +1,10 @@
-// ################################################################################
-// ################################### AI TERMINAL ################################
-// ################################################################################
-const AI_API_URL = "https://your-api.onrender.com/chat"; // 🔌 Replace with your FastAPI endpoint
+const AI_MAINTENANCE_MODE = CONFIG.MAINTENANCE_MODE;
+const AI_API_URL = CONFIG.AI_API_URL;
+
+const AI_MAINTENANCE_MESSAGE = {
+  title: "SYSTEM NOTICE",
+  message: "Assistant is currently under maintenance. Please try again later or drop an email at ubaidalikhan247@gmail.com",
+};
 
 const bootSequence = [
   { text: "[INITIALIZING NEURAL LINK...]", delay: 0 },
@@ -18,6 +21,10 @@ function openAITerminal() {
   overlay.classList.add("active");
   document.body.style.overflow = "hidden";
 
+  if (AI_MAINTENANCE_MODE) {
+    showMaintenanceBanner();
+  }
+
   if (!isBooted) {
     runBootSequence();
     isBooted = true;
@@ -28,6 +35,37 @@ function closeAITerminal() {
   const overlay = document.getElementById("ai-overlay");
   overlay.classList.remove("active");
   document.body.style.overflow = "";
+}
+
+function showMaintenanceBanner() {
+  // Don't add duplicate
+  if (document.getElementById("ai-maintenance-banner")) return;
+
+  const terminal = document.getElementById("ai-terminal");
+
+  const banner = document.createElement("div");
+  banner.className = "ai-maintenance-banner";
+  banner.id = "ai-maintenance-banner";
+
+  banner.innerHTML = `
+    <div class="ai-maintenance-inner">
+      <div class="ai-maintenance-left">
+        <span class="ai-maintenance-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </span>
+        <div class="ai-maintenance-text">
+          <span class="ai-maintenance-title">[${AI_MAINTENANCE_MESSAGE.title}]</span>
+          <span class="ai-maintenance-body">${AI_MAINTENANCE_MESSAGE.message}</span>
+        </div>
+      </div>
+      <button class="ai-maintenance-close" onclick="this.parentElement.parentElement.remove()" aria-label="Dismiss">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+  `;
+
+  // Insert above terminal body
+  terminal.insertBefore(banner, terminal.querySelector(".ai-terminal-body"));
 }
 
 function runBootSequence() {
@@ -164,20 +202,21 @@ async function sendMessage() {
 
   } catch (err) {
     removeThinking();
-    appendMessage("AI", "[ERROR: NEURAL LINK DISRUPTED. Please try again.]", false);
+    appendMessage("AI", "[ERROR: NEURAL LINK DISRUPTED] Apologies — I've encountered an unexpected system fault. A full diagnostic report has been dispatched to Ubaid. He's been notified and is likely already aware. In the meantime, you may reach him directly at ubaidalikhan247@gmail.com.", false);
     console.error("AI API error:", err);
   }
 }
 
 function initAITerminal() {
-  // CTA button in navbar
   const ctaBtn = document.querySelector(".nav-cta-pill");
   if (ctaBtn) {
     ctaBtn.addEventListener("click", (e) => {
       e.preventDefault();
       openAITerminal();
     });
-  }
+  } 
+
+  initHistoryToggle();
 
   // Close button
   document.getElementById("ai-close-btn").addEventListener("click", closeAITerminal);
@@ -199,3 +238,100 @@ function initAITerminal() {
 }
 
 initAITerminal();
+
+
+// History Preservation State
+let historyPreservationEnabled = false;
+let preservationEmail = null;
+
+function initHistoryToggle() {
+  const toggle = document.getElementById("ai-history-toggle");
+  const modal = document.getElementById("ai-email-modal");
+  const modalClose = document.getElementById("ai-email-modal-close");
+  const modalCancel = document.getElementById("ai-email-modal-cancel");
+  const modalConfirm = document.getElementById("ai-email-modal-confirm");
+  const emailInput = document.getElementById("ai-email-input");
+
+  // Open modal on toggle click
+  toggle.addEventListener("click", () => {
+    if (historyPreservationEnabled) {
+      // Turn off
+      disableHistoryPreservation();
+    } else {
+      // Open modal to collect email
+      openEmailModal();
+    }
+  });
+
+  // Close modal — reset toggle
+  modalClose.addEventListener("click", cancelEmailModal);
+  modalCancel.addEventListener("click", cancelEmailModal);
+
+  // Close on backdrop click
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) cancelEmailModal();
+  });
+
+  // Confirm
+  modalConfirm.addEventListener("click", confirmHistoryPreservation);
+
+  // Enter key in input
+  emailInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") confirmHistoryPreservation();
+  });
+}
+
+function openEmailModal() {
+  const modal = document.getElementById("ai-email-modal");
+  const emailInput = document.getElementById("ai-email-input");
+  modal.classList.add("active");
+  setTimeout(() => emailInput.focus(), 300);
+}
+
+function cancelEmailModal() {
+  const modal = document.getElementById("ai-email-modal");
+  const emailInput = document.getElementById("ai-email-input");
+  modal.classList.remove("active");
+  emailInput.value = "";
+
+  // Reset toggle to off
+  historyPreservationEnabled = false;
+  document.getElementById("ai-history-toggle").classList.remove("on");
+}
+
+function confirmHistoryPreservation() {
+  const emailInput = document.getElementById("ai-email-input");
+  const email = emailInput.value.trim();
+
+  if (!email || !isValidEmail(email)) {
+    emailInput.classList.add("shake");
+    setTimeout(() => emailInput.classList.remove("shake"), 500);
+    return;
+  }
+
+  preservationEmail = email;
+  historyPreservationEnabled = true;
+
+  // Close modal
+  document.getElementById("ai-email-modal").classList.remove("active");
+  emailInput.value = "";
+
+  // Activate toggle visually
+  document.getElementById("ai-history-toggle").classList.add("on");
+
+  // Notify user in terminal
+  appendSystemLine(`[HISTORY PRESERVATION ENABLED: ${email}]`);
+  scrollToBottom();
+}
+
+function disableHistoryPreservation() {
+  historyPreservationEnabled = false;
+  preservationEmail = null;
+  document.getElementById("ai-history-toggle").classList.remove("on");
+  appendSystemLine("[HISTORY PRESERVATION DISABLED]");
+  scrollToBottom();
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}

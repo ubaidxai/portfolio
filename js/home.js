@@ -20,3 +20,8 @@ function type() {
   setTimeout(type, deleting ? 30 : 80);
 }
 type();
+
+document.getElementById("hero-cta-btn").addEventListener("click", (e) => {
+  e.preventDefault();
+  openAITerminal();
+});

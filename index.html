@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/general.css" />
   <link rel="stylesheet" href="css/background.css" />
   <link rel="stylesheet" href="css/chat.css" />
+  <link rel="stylesheet" href="css/history.css" />
   <link rel="stylesheet" href="css/navbar.css" />
   <link rel="stylesheet" href="css/home.css" />
   <link rel="stylesheet" href="css/tools.css" />
@@ -54,7 +55,7 @@
 
     <div class="buttons">
       <button class="btn btn-secondary">View My Work</button>
-      <button class="btn btn-primary">Chat With My AI</button>
+      <button class="btn btn-primary" id="hero-cta-btn">Chat With My AI</button>
     </div>
 
     <div class="socials">
@@ -70,17 +71,58 @@
     <div class="ai-terminal" id="ai-terminal">
 
       <!-- Terminal Header -->
-      <div class="ai-terminal-header">
-        <div class="ai-terminal-dots">
-          <span class="dot dot-red"></span>
-          <span class="dot dot-yellow"></span>
-          <span class="dot dot-green"></span>
-        </div>
-        <div class="ai-terminal-title">UA_KHAN_OS V1.0.4-STABLE</div>
-        <button class="ai-close-btn" id="ai-close-btn" aria-label="Close">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
+<div class="ai-terminal-header">
+  <div class="ai-terminal-dots">
+    <span class="dot dot-red"></span>
+    <span class="dot dot-yellow"></span>
+    <span class="dot dot-green"></span>
+  </div>
+  <div class="ai-terminal-title">UA_KHAN_OS V1.0.4-STABLE</div>
+
+  <!-- History Toggle -->
+  <div class="ai-history-toggle-wrap" id="ai-history-toggle-wrap">
+    <span class="ai-history-label">PRESERVE HISTORY</span>
+    <button class="ai-toggle" id="ai-history-toggle" aria-label="Toggle history preservation">
+      <span class="ai-toggle-knob"></span>
+    </button>
+  </div>
+
+  <button class="ai-close-btn" id="ai-close-btn" aria-label="Close">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</div>
+<!-- Email Modal -->
+<div class="ai-email-modal" id="ai-email-modal">
+  <div class="ai-email-modal-box">
+    <div class="ai-email-modal-header">
+      <span class="ai-email-modal-title">[ENABLE HISTORY PRESERVATION]</span>
+      <button class="ai-email-modal-close" id="ai-email-modal-close" aria-label="Cancel">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <p class="ai-email-modal-reason">
+      Your conversation history will be stored securely against your email. This allows you to resume previous sessions and helps improve response quality over time. Your email will not be used for any other purpose.
+    </p>
+
+    <div class="ai-email-modal-input-wrap">
+      <span class="ai-email-modal-prefix">&gt;</span>
+      <input
+        type="email"
+        id="ai-email-input"
+        class="ai-email-modal-input"
+        placeholder="ENTER_EMAIL..."
+        autocomplete="email"
+        spellcheck="false"
+      />
+    </div>
+
+    <div class="ai-email-modal-actions">
+      <button class="ai-email-modal-cancel" id="ai-email-modal-cancel">CANCEL</button>
+      <button class="ai-email-modal-confirm" id="ai-email-modal-confirm">CONFIRM &amp; ENABLE</button>
+    </div>
+  </div>
+</div>
 
       <!-- Terminal Body -->
       <div class="ai-terminal-body" id="ai-terminal-body">
@@ -177,7 +219,7 @@
     </div>
   </section> 
  
-
+<!-- Just above the terminal window, add a toggle attached just above 'x' button (not inside terminal window) -->
   <!-- footer -->
   <footer class="footer">
     <div class="footer-top-line"></div>
@@ -194,6 +236,7 @@
 
 
   <!-- JS Files -->
+  <script src="config.js"></script>
   <script src="js/data.js"></script>
   <script src="js/background.js"></script>
   <script src="js/chat.js"></script>

@@ -1,0 +1,240 @@
+/* ################################################################################ */
+/* ############################### HISTORY TOGGLE ################################# */
+/* ################################################################################ */
+.ai-history-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  margin-right: 0.8rem;
+}
+
+.ai-history-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: #808080;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.ai-history-toggle-wrap:has(.ai-toggle.on) .ai-history-label {
+  color: #00ffaa;
+}
+
+.ai-toggle {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 200, 255, 0.15);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.ai-toggle.on {
+  background: rgba(0, 255, 170, 0.12);
+  border-color: rgba(0, 255, 170, 0.4);
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.15);
+}
+
+.ai-toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: #808080;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.ai-toggle.on .ai-toggle-knob {
+  left: 18px;
+  background: #00ffaa;
+  box-shadow: 0 0 6px rgba(0, 255, 170, 0.6);
+}
+
+/* ################################################################################ */
+/* ################################ EMAIL MODAL ################################### */
+/* ################################################################################ */
+.ai-email-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.ai-email-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.ai-email-modal-box {
+  width: 100%;
+  max-width: 440px;
+  background: #0d1117;
+  border: 1px solid rgba(0, 200, 255, 0.15);
+  border-radius: 12px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transform: translateY(10px) scale(0.98);
+  transition: transform 0.25s ease;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.ai-email-modal.active .ai-email-modal-box {
+  transform: translateY(0) scale(1);
+}
+
+.ai-email-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-email-modal-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #00c8ff;
+}
+
+.ai-email-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.ai-email-modal-close:hover {
+  color: #ff5f57;
+}
+
+.ai-email-modal-reason {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: #666;
+  letter-spacing: 0.02em;
+  max-width: 100%;
+  margin: 0;
+}
+
+.ai-email-modal-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 200, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  transition: border-color 0.2s ease;
+}
+
+.ai-email-modal-input-wrap:focus-within {
+  border-color: rgba(0, 200, 255, 0.35);
+}
+
+.ai-email-modal-prefix {
+  font-family: var(--font-mono);
+  color: #00ffaa;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.ai-email-modal-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #c9d1d9;
+  caret-color: #00ffaa;
+  letter-spacing: 0.04em;
+}
+
+.ai-email-modal-input::placeholder {
+  color: #333;
+  letter-spacing: 0.08em;
+}
+
+.ai-email-modal-input.shake {
+  animation: inputShake 0.4s ease;
+  border-color: rgba(255, 95, 87, 0.5);
+}
+
+@keyframes inputShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+.ai-email-modal-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: flex-end;
+}
+
+.ai-email-modal-cancel,
+.ai-email-modal-confirm {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.ai-email-modal-cancel {
+  background: rgba(255, 255, 255, 0.04);
+  color: #666;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ai-email-modal-cancel:hover {
+  color: #aaa;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.ai-email-modal-confirm {
+  background: linear-gradient(90deg, #00a2ff, #00ffaa);
+  color: #0b0d0f;
+}
+
+.ai-email-modal-confirm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 255, 170, 0.25);
+}
+
+@media (max-width: 768px) {
+  .ai-history-label {
+    display: none;
+  }
+}
