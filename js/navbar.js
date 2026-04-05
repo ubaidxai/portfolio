@@ -16,7 +16,7 @@ function renderNavbar() {
 
     <div class="nav-separator"></div>
 
-    <a href="${navData.cta.href}" class="nav-cta-pill">
+    <a href="${navData.cta.href}" class="nav-cta-pill" id="nav-cta-btn">
       ${navData.cta.icon}
       ${navData.cta.label}
     </a>
@@ -38,7 +38,7 @@ function renderNavbar() {
           ${link.label}
         </a>
       `).join("")}
-      <a href="${navData.cta.href}" class="nav-mobile-cta">${navData.cta.label}</a>
+      <a href="${navData.cta.href}" class="nav-mobile-cta" id="nav-mobile-cta-btn">${navData.cta.label}</a>
     </div>
   `;
   document.body.appendChild(mobileMenu);
@@ -59,6 +59,18 @@ function renderNavbar() {
 
   initNavActiveState();
   initNavScroll();
+
+  // AI Terminal trigger
+  document.getElementById("nav-cta-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+    openAITerminal();
+  });
+
+  document.getElementById("nav-mobile-cta-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+    closeMobileMenu();
+    openAITerminal();
+  });
 }
 
 function initNavActiveState() {
